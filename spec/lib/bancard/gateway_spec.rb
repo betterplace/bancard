@@ -21,14 +21,9 @@ describe Bancard::Gateway do
     end
   end
 
-  describe '#vpos_url' do
-    it 'returns the correct vpos_url for test' do
-      expect(gateway.vpos_url).to eq 'https://vpos.infonet.com.py:8888'
-    end
-
-    it 'returns the correct vpos_url for live' do
-      Bancard.test = false
-      expect(gateway.vpos_url).to eq 'https://vpos.infonet.com.py'
+  describe '#init_single_buy' do
+    it 'builds a SingleBuyInit and returns its response' do
+      pending
     end
   end
 end
