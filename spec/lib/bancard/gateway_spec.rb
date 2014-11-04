@@ -22,9 +22,7 @@ describe Bancard::Gateway do
   end
 
   describe '#init_single_buy' do
-    it 'builds a SingleBuyInit and returns its response' do
-      pending
-    end
+    it 'builds a SingleBuyInit and returns its response'
   end
 end
 
