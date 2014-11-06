@@ -1,6 +1,7 @@
 module Bancard
   class SingleBuyInit
     include Bancard::Utils
+    ENDPOINT = '/vpos/api/0.3/single_buy'
 
     attr_accessor :given_params, :public_key, :private_key
 
@@ -8,10 +9,6 @@ module Bancard
       @given_params = stringify_keys(given_params)
       @public_key   = @given_params.delete('public_key')
       @private_key  = @given_params.delete('private_key')
-    end
-
-    def response
-      # Implement me
     end
 
     def request_params

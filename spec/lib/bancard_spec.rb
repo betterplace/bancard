@@ -27,6 +27,10 @@ describe Bancard do
       Bancard.test = false
       expect(Bancard.vpos_url).to eq 'https://vpos.infonet.com.py'
     end
+
+    it 'appends a given path' do
+      expect(Bancard.vpos_url('/foo/bar')).to eq 'https://vpos.infonet.com.py:8888/foo/bar'
+    end
   end
 
 end
