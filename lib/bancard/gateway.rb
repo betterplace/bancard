@@ -1,10 +1,9 @@
 module Bancard
   class Gateway
-    attr_accessor :public_key, :shop_process_id, :private_key
+    attr_accessor :public_key, :private_key
 
     def initialize(auth_params = {})
       @public_key      = auth_params.fetch(:public_key)
-      @shop_process_id = auth_params.fetch(:shop_process_id)
       @private_key     = auth_params.fetch(:private_key)
     end
 
@@ -21,12 +20,12 @@ module Bancard
 
     def submit_single_buy_init(init)
       url      = Bancard.vpos_url(Bancard::SingleBuyInit::ENDPOINT)
-      response = Typhoeus.post(url, body: init.request_params)
+      response = Typhoeus.post(url, body: init.request_params.to_json)
       Bancard::SingleBuyInitResponse.new response
     end
 
     def merge_auth_params(hash)
-      hash.merge(public_key: public_key, private_key: private_key, shop_process_id: shop_process_id)
+      hash.merge(public_key: public_key, private_key: private_key)
     end
   end
 end

@@ -3,15 +3,23 @@
 
 module Bancard
   class SingleBuyInitResponse
-    attr_reader :params
+    attr_reader :body
 
     def initialize(response)
       @original_response = response
-      @params = JSON.parse(response.body)
+      @body              = JSON.parse(response.body)
     end
 
     def success?
-      params['status'] == 'success'
+      body['status'] == 'success'
+    end
+
+    def params
+      body.merge 'payment_url' => payment_url
+    end
+
+    def payment_url
+      @original_response.headers['Location']
     end
 
     def process_id
