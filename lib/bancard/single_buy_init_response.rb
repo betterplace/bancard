@@ -4,6 +4,7 @@
 module Bancard
   class SingleBuyInitResponse
     attr_reader :body
+    REDIRECT_PATH = '/payment/single_buy'
 
     def initialize(response)
       @original_response = response
@@ -19,11 +20,11 @@ module Bancard
     end
 
     def payment_url
-      @original_response.headers['Location']
+      Bancard.vpos_url(REDIRECT_PATH) + "?process_id=#{process_id}"
     end
 
     def process_id
-      params['process_id']
+      body['process_id']
     end
 
     def message

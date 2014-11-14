@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe Bancard::SingleBuyInitResponse do
   let(:body) { { 'status' => 'success', 'process_id' => '123' } }
-  let(:headers) { { 'Location' => 'https://fancy.redirect' } }
-  let(:typhoeus_response) { Typhoeus::Response.new(body: body.to_json, headers: headers) }
+  let(:typhoeus_response) { Typhoeus::Response.new(body: body.to_json) }
   let(:response) { Bancard::SingleBuyInitResponse.new(typhoeus_response) }
 
   describe '#initialize' do
@@ -19,8 +18,8 @@ describe Bancard::SingleBuyInitResponse do
   end
 
   describe '#params' do
-    it 'includes the value of the Location header' do
-      expect(response.params['payment_url']).to eq 'https://fancy.redirect'
+    it 'includes the process_id in the redirect' do
+      expect(response.params['payment_url']).to include '123'
     end
   end
 
