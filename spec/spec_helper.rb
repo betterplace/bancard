@@ -1,7 +1,7 @@
 require 'simplecov'
 require 'byebug'
 
-SimpleCov.adapters.define 'gem' do
+SimpleCov.profiles.define 'gem' do
   add_filter '/spec/'
   add_filter '/autotest/'
   add_group 'Libraries', '/lib/'
@@ -12,7 +12,7 @@ require 'bancard'
 
 RSpec.configure do |config|
   config.before do
-    Bancard.test = true
+    Bancard.sandbox!
   end
 
   config.before(:all) do

@@ -14,16 +14,16 @@ module Bancard
 
   DEFAULT_CURRENCY = 'PYG'
 
-  def self.test=(value)
-    @test = !!value
+  def self.sandbox!
+    @sandbox = true
   end
 
-  def self.test?
-    !!@test
+  def self.sandbox?
+    !!@sandbox
   end
 
   def self.vpos_url(path = nil)
-    uri      = URI.parse(test? ? TEST_URL : LIVE_URL)
+    uri      = URI.parse(sandbox? ? TEST_URL : LIVE_URL)
     uri.path = path.to_s
     uri.to_s
   end
