@@ -8,20 +8,35 @@ module Bancard
     end
 
     def single_buy(params = {})
-      init = single_buy_init(params)
+      init = build_single_buy_init(params)
       submit_single_buy_init(init)
+    end
+
+    def rollback(params = {})
+      rollback = build_single_buy_rollback(params)
+      submit_single_buy_rollback(rollback)
     end
 
     private
 
-    def single_buy_init(params = {})
+    def build_single_buy_init(params = {})
       Bancard::SingleBuyInit.new(merge_auth_params(params))
+    end
+
+    def build_single_buy_rollback(params = {})
+      Bancard::SingleBuyRollback.new(merge_auth_params(params))
     end
 
     def submit_single_buy_init(init)
       url      = Bancard.vpos_url(Bancard::SingleBuyInit::ENDPOINT)
       response = Typhoeus.post(url, body: init.request_params.to_json)
       Bancard::SingleBuyInitResponse.new response
+    end
+
+    def submit_single_buy_rollback(rollback)
+      url      = Bancard.vpos_url(Bancard::SingleBuyRollback::ENDPOINT)
+      response = Typhoeus.post(url, body: rollback.request_params.to_json)
+      Bancard::SingleBuyRollbackResponse.new response
     end
 
     def merge_auth_params(hash)

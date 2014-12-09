@@ -30,9 +30,22 @@ describe Bancard::Gateway do
     end
 
     it 'includes the auth params' do
-      init = gateway.__send__(:single_buy_init)
+      init = gateway.__send__(:build_single_buy_init)
       expect(init.private_key).to eq 'private'
       expect(init.public_key).to eq 'public'
+    end
+  end
+
+  describe '#rollback' do
+    it 'builds a SingleBuyInit and returns its response' do
+      response = gateway.rollback({})
+      expect(response).to be_a Bancard::SingleBuyRollbackResponse
+    end
+
+    it 'includes the auth params' do
+      rollback = gateway.__send__(:build_single_buy_rollback)
+      expect(rollback.private_key).to eq 'private'
+      expect(rollback.public_key).to eq 'public'
     end
   end
 end

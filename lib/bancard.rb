@@ -6,6 +6,8 @@ require 'bancard/version'
 require 'bancard/utils'
 require 'bancard/single_buy_init'
 require 'bancard/single_buy_init_response'
+require 'bancard/single_buy_rollback'
+require 'bancard/single_buy_rollback_response'
 require 'bancard/gateway'
 
 module Bancard
