@@ -8,6 +8,8 @@ require 'bancard/single_buy_init'
 require 'bancard/single_buy_init_response'
 require 'bancard/single_buy_rollback'
 require 'bancard/single_buy_rollback_response'
+require 'bancard/single_buy_confirmation'
+require 'bancard/single_buy_confirmation_response'
 require 'bancard/gateway'
 
 module Bancard

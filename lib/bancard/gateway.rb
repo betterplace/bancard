@@ -17,7 +17,7 @@ module Bancard
       submit_single_buy_rollback(rollback)
     end
 
-    def single_buy_confirmation(params = {})
+    def confirmation(params = {})
       confirmation = build_single_buy_confirmation(params)
       submit_single_buy_confirmation(confirmation)
     end
