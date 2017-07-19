@@ -17,6 +17,11 @@ module Bancard
       submit_single_buy_rollback(rollback)
     end
 
+    def confirmation(params = {})
+      confirmation = build_single_buy_confirmation(params)
+      submit_single_buy_confirmation(confirmation)
+    end
+    
     private
 
     def build_single_buy_init(params = {})
@@ -26,7 +31,11 @@ module Bancard
     def build_single_buy_rollback(params = {})
       Bancard::SingleBuyRollback.new(merge_auth_params(params))
     end
-
+    
+    def build_single_buy_confirmation(params = {})
+      Bancard::SingleBuyConfirmation.new(merge_auth_params(params))
+    end
+    
     def submit_single_buy_init(init)
       url      = Bancard.vpos_url(Bancard::SingleBuyInit::ENDPOINT)
       response = Typhoeus.post(url, body: init.request_params.to_json)
@@ -39,6 +48,12 @@ module Bancard
       Bancard::SingleBuyRollbackResponse.new response
     end
 
+    def submit_single_buy_confirmation(confirmation)
+      url      = Bancard.vpos_url(Bancard::SingleBuyConfirmation::ENDPOINT)
+      response = Typhoeus.post(url, body: confirmation.request_params.to_json)
+      Bancard::SingleBuyConfirmationResponse.new response
+    end
+    
     def merge_auth_params(hash)
       hash.merge(public_key: public_key, private_key: private_key)
     end
